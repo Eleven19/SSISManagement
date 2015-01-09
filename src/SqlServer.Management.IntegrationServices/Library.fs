@@ -1,4 +1,4 @@
-﻿namespace FSharp.ProjectTemplate
+namespace SqlServer.Management.IntegrationServices
 
 /// Documentation for my library
 ///

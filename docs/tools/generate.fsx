@@ -4,19 +4,19 @@
 // --------------------------------------------------------------------------------------
 
 // Binaries that have XML documentation (in a corresponding generated XML file)
-let referenceBinaries = [ "##ProjectName##.dll" ]
+let referenceBinaries = [ "SqlServer.Management.IntegrationServices.dll" ]
 // Web site location for the generated documentation
-let website = "/##ProjectName##"
+let website = "/SqlServer.Management.IntegrationServices"
 
-let githubLink = "http://github.com/##GitHome##/##GitName##"
+let githubLink = "http://github.com/DamianReeves/SqlServer.Management.IntegrationServices"
 
 // Specify more information about your project
 let info =
-  [ "project-name", "##ProjectName##"
-    "project-author", "##Author##"
-    "project-summary", "##Summary##"
+  [ "project-name", "SqlServer.Management.IntegrationServices"
+    "project-author", "Damian Reeves"
+    "project-summary", "SQL Server Integration Services management library for executing and working with SSIS packages"
     "project-github", githubLink
-    "project-nuget", "http://nuget.org/packages/##ProjectName##" ]
+    "project-nuget", "http://nuget.org/packages/SqlServer.Management.IntegrationServices" ]
 
 // --------------------------------------------------------------------------------------
 // For typical project, no changes are needed below

@@ -1,6 +1,6 @@
-﻿module FSharp.ProjectScaffold.Tests
+module SqlServer.Management.IntegrationServices.Tests
 
-open FSharp.ProjectTemplate
+open SqlServer.Management.IntegrationServices
 open NUnit.Framework
 
 [<Test>]

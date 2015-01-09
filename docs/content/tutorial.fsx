@@ -10,8 +10,8 @@ Introducing your project
 Say more
 
 *)
-#r "FSharp.ProjectTemplate.dll"
-open FSharp.ProjectTemplate
+#r "SqlServer.Management.IntegrationServices.dll"
+open SqlServer.Management.IntegrationServices
 
 Library.hello 0
 (**
