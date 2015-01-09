@@ -17,12 +17,9 @@ In order to start the scaffolding process run
     
 Read the [Getting started tutorial](http://fsprojects.github.io/ProjectScaffold/index.html#Getting-started) to learn more.
 
-Documentation: http://fsprojects.github.io/ProjectScaffold
+Documentation: http://DamianReeves.github.io/SSISManagement
 
 ## Maintainer(s)
 
-- [@forki](https://github.com/forki)
-- [@pblasucci](https://github.com/pblasucci)
-- [@sergey-tihon](https://github.com/sergey-tihon)
+- [@DamianReeves](https://github.com/DamianReeves)
 
-The default maintainer account for projects under "fsprojects" is [@fsgit](https://github.com/fsgit) - F# Community Project Incubation Space (repo management)
