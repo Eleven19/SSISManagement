@@ -59,9 +59,9 @@ The library is available under Public Domain license, which allows modification 
 redistribution for both commercial and non-commercial purposes. For more information see the 
 [License file][license] in the GitHub repository. 
 
-  [content]: https://github.com/fsprojects/SqlServer.Management.IntegrationServices/tree/master/docs/content
-  [gh]: https://github.com/fsprojects/SqlServer.Management.IntegrationServices
-  [issues]: https://github.com/fsprojects/SqlServer.Management.IntegrationServices/issues
-  [readme]: https://github.com/fsprojects/SqlServer.Management.IntegrationServices/blob/master/README.md
-  [license]: https://github.com/fsprojects/SqlServer.Management.IntegrationServices/blob/master/LICENSE.txt
+  [content]: https://github.com/fsprojects/SSISManagement/tree/master/docs/content
+  [gh]: https://github.com/DamianReeves/SSISManagement
+  [issues]: https://github.com/DamianReeves/SSISManagement/issues
+  [readme]: https://github.com/DamianReeves/SSISManagement/blob/master/README.md
+  [license]: https://github.com/DamianReeves/SSISManagement/blob/master/LICENSE.txt
 *)

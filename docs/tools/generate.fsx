@@ -6,9 +6,9 @@
 // Binaries that have XML documentation (in a corresponding generated XML file)
 let referenceBinaries = [ "SqlServer.Management.IntegrationServices.dll" ]
 // Web site location for the generated documentation
-let website = "/SqlServer.Management.IntegrationServices"
+let website = "/SSISManagement"
 
-let githubLink = "http://github.com/DamianReeves/SqlServer.Management.IntegrationServices"
+let githubLink = "http://github.com/DamianReeves/SSISManagement"
 
 // Specify more information about your project
 let info =
