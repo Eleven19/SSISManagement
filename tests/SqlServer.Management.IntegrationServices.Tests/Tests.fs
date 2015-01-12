@@ -4,7 +4,7 @@ open SqlServer.Management.IntegrationServices
 open NUnit.Framework
 
 [<Test>]
-let ``hello returns 42`` () =
-  let result = Library.hello 42
-  printfn "%i" result
-  Assert.AreEqual(42,result)
+let ``Can work with DataAccess class`` () =
+  let db = new DataAccess.SSISDb()
+  printfn "%A" db
+  //Assert.AreEqual(42,result)

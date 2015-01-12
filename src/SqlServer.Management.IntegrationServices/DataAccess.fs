@@ -7,10 +7,11 @@ namespace SqlServer.Management.IntegrationServices
 ///     let h = Library.hello 1
 ///     printfn "%d" h
 ///
-module Library = 
-  
-  /// Returns 42
-  ///
-  /// ## Parameters
-  ///  - `num` - whatever
-  let hello num = 42
+[<AutoOpen>]
+module DataAccess = 
+  open FSharp.Data
+
+  [<Literal>]
+  let ConnectionStringOrName = "name=SSISDB"
+
+  type SSISDb = SqlProgrammabilityProvider<ConnectionStringOrName>
