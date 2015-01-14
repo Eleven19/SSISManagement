@@ -8,6 +8,7 @@ open Fake
 open Fake.Git
 open Fake.AssemblyInfoFile
 open Fake.ReleaseNotesHelper
+open Fake.ProcessHelper
 open System
 open System.IO
 #if MONO
@@ -67,11 +68,17 @@ let gitRaw = environVarOrDefault "gitRaw" "https://raw.github.com/DamianReeves"
 
 // Read additional information from the release notes document
 let release = LoadReleaseNotes "RELEASE_NOTES.md"
+let runTests = true
+let testResultsDir = ".testResults"
 
 let genFSAssemblyInfo (projectPath) =
     let projectName = System.IO.Path.GetFileNameWithoutExtension(projectPath)
     let basePath = "src/" + projectName
     let fileName = basePath + "/AssemblyInfo.fs"
+    // Remove readonly flag
+    !! fileName
+    |> SetReadOnly false
+
     CreateFSharpAssemblyInfo fileName
       [ Attribute.Title (projectName)
         Attribute.Product project
@@ -83,6 +90,11 @@ let genCSAssemblyInfo (projectPath) =
     let projectName = System.IO.Path.GetFileNameWithoutExtension(projectPath)
     let basePath = "src/" + projectName + "/Properties"
     let fileName = basePath + "/AssemblyInfo.cs"
+    
+    // Remove readonly flag
+    !! fileName
+    |> SetReadOnly false
+
     CreateCSharpAssemblyInfo fileName
       [ Attribute.Title (projectName)
         Attribute.Product project
@@ -102,7 +114,7 @@ Target "AssemblyInfo" (fun _ ->
 // Clean build results
 
 Target "Clean" (fun _ ->
-    CleanDirs ["bin"; "temp"]
+    CleanDirs ["bin"; "temp"; testResultsDir]
 )
 
 Target "CleanDocs" (fun _ ->
@@ -121,7 +133,19 @@ Target "Build" (fun _ ->
 // --------------------------------------------------------------------------------------
 // Run the unit tests using test runner
 
-Target "RunTests" (fun _ ->
+Target "Run xUnit Tests" (fun _ ->
+    !! testAssemblies
+    |> xUnit (fun p ->
+        { p with
+            ShadowCopy = false
+            HtmlOutput = true;
+            XmlOutput = true;
+            NUnitXmlOutput = true;
+            Verbose = true;
+            OutputDir = testResultsDir})
+)
+
+Target "Run NUnit Tests" (fun _ ->
     !! testAssemblies
     |> NUnit (fun p ->
         { p with
@@ -129,6 +153,8 @@ Target "RunTests" (fun _ ->
             TimeOut = TimeSpan.FromMinutes 20.
             OutputFile = "TestResults.xml" })
 )
+
+Target "RunTests" DoNothing
 
 #if MONO
 #else
@@ -313,9 +339,39 @@ Target "Release" (fun _ ->
 Target "BuildPackage" DoNothing
 
 // --------------------------------------------------------------------------------------
+// Paket targets
+Target "Install-Dependencies" (fun _ ->
+    let cfg (info: System.Diagnostics.ProcessStartInfo) =
+        info.FileName <- __SOURCE_DIRECTORY__ @@ ".paket\paket.exe"
+        info.WorkingDirectory <- __SOURCE_DIRECTORY__
+        info.Arguments <- "install"
+
+    match directExec cfg with
+    | true -> log "Installation of dependencies succeeded!"
+    | false -> log "Installation of dependencies failed!"
+)
+
+Target "Restore-Dependencies" (fun _ ->
+    let cfg (info: System.Diagnostics.ProcessStartInfo) =
+        info.FileName <- __SOURCE_DIRECTORY__ @@ ".paket\paket.exe"
+        info.WorkingDirectory <- __SOURCE_DIRECTORY__
+        info.Arguments <- "restore"
+
+    match directExec cfg with
+    | true -> log "Restoration of dependencies succeeded!"
+    | false -> log "Restoration of dependencies failed!"
+)
+
+// --------------------------------------------------------------------------------------
 // Run all targets by default. Invoke 'build <Target>' to override
 
 Target "All" DoNothing
+
+"Run xUnit Tests"
+  ==> "RunTests"
+
+"Run NUnit Tests"
+ ==> "RunTests"
 
 "Clean"
   ==> "AssemblyInfo"

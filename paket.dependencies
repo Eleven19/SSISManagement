@@ -8,4 +8,10 @@ nuget FAKE
 nuget SourceLink.Fake
 nuget FSharp.Data.SqlClient
 
+nuget Xbehave ~> 1.1
+nuget xunit.runners ~> 1.9
+nuget xunit.runner.visualstudio >= 0.99 prerelease
+nuget FluentAssertions
+nuget FakeItEasy
+
 github fsharp/FAKE modules/Octokit/Octokit.fsx

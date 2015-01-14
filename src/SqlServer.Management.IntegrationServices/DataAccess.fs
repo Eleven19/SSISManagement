@@ -1,17 +1,20 @@
 namespace SqlServer.Management.IntegrationServices
+open System
+open FSharp.Data
+open SqlServer.Management.IntegrationServices.Data
 
-/// Documentation for my library
-///
-/// ## Example
-///
-///     let h = Library.hello 1
-///     printfn "%d" h
-///
+
+
 [<AutoOpen>]
 module DataAccess = 
   open FSharp.Data
 
   [<Literal>]
-  let ConnectionStringOrName = "name=SSISDB"
+  let SSISDbConnectionStringOrName = "name=SSISDB"
 
-  type SSISDb = SqlProgrammabilityProvider<ConnectionStringOrName>
+  type SSISDb = SqlProgrammabilityProvider<SSISDbConnectionStringOrName>
+                
+ 
+type CatalogDataService (connectionStringProvider:IConnectionStringProvider) =
+  member this.ExecutePackage folderName projectName packageName =
+    let cmd = new SSISDb.catalog.create_execution()

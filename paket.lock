@@ -2,6 +2,8 @@ NUGET
   remote: https://nuget.org/api/v2
   specs:
     FAKE (3.13.3)
+    FakeItEasy (1.25.1)
+    FluentAssertions (3.2.2)
     FSharp.Compiler.Service (0.0.81)
     FSharp.Data.SqlClient (1.5.7)
       Microsoft.SqlServer.Types (>= 11.0.0)
@@ -20,6 +22,14 @@ NUGET
     Octokit (0.6.2)
       Microsoft.Net.Http
     SourceLink.Fake (0.4.2)
+    Xbehave (1.1.0)
+      xunit (1.9.2)
+      xunit.extensions (1.9.2)
+    xunit (1.9.2)
+    xunit.extensions (1.9.2)
+      xunit (1.9.2)
+    xunit.runner.visualstudio (0.99.9-build1021)
+    xunit.runners (1.9.2)
 GITHUB
   remote: fsharp/FAKE
   specs:
