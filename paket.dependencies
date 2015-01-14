@@ -7,11 +7,17 @@ nuget Nuget.CommandLine
 nuget FAKE
 nuget SourceLink.Fake
 nuget FSharp.Data.SqlClient
-
+nuget Insight.Database
+nuget FSharp.Core ~> 3.1
+nuget UnionArgParser
 nuget Xbehave ~> 1.1
 nuget xunit.runners ~> 1.9
 nuget xunit.runner.visualstudio >= 0.99 prerelease
 nuget FluentAssertions
 nuget FakeItEasy
+nuget FSharp.Core
+nuget Insight.Database
+nuget UnionArgParser
+nuget Insight.Database
 
 github fsharp/FAKE modules/Octokit/Octokit.fsx

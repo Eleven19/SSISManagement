@@ -43,10 +43,10 @@ let description = "SQL Server Integration Services management library for execut
 let authors = [ "Damian Reeves" ]
 
 // Tags for your project (for NuGet package)
-let tags = "Data FSharp SQLServer SSIS IntegrationServices"
+let tags = "Data SQLServer SSIS IntegrationServices"
 
 // File system information 
-let solutionFile  = "SqlServer.Management.IntegrationServices.sln"
+let solutionFile  = "SSISManagement.sln"
 
 // Pattern specifying assemblies to be tested using NUnit
 let testAssemblies = "tests/**/bin/Release/*Tests*.dll"
@@ -66,14 +66,26 @@ let gitRaw = environVarOrDefault "gitRaw" "https://raw.github.com/DamianReeves"
 // END TODO: The rest of the file includes standard build steps
 // --------------------------------------------------------------------------------------
 
+// create an active pattern
+let (|Bool|_|) str =
+    match System.Boolean.TryParse(str) with
+    | (true,bool) -> Some(bool)
+    | _ -> None
+
 // Read additional information from the release notes document
 let release = LoadReleaseNotes "RELEASE_NOTES.md"
 let runTests = true
+let shouldGenerateDocs =     
+    let result = environVarOrDefault "GenerateDocs" "false"
+    match result with
+    | Bool v -> v && isLocalBuild && not isMono
+    | _ -> false
+
 let testResultsDir = ".testResults"
 
 let genFSAssemblyInfo (projectPath) =
     let projectName = System.IO.Path.GetFileNameWithoutExtension(projectPath)
-    let basePath = "src/" + projectName
+    let basePath = System.IO.Path.GetDirectoryName(projectPath)
     let fileName = basePath + "/AssemblyInfo.fs"
     // Remove readonly flag
     !! fileName
@@ -88,7 +100,7 @@ let genFSAssemblyInfo (projectPath) =
 
 let genCSAssemblyInfo (projectPath) =
     let projectName = System.IO.Path.GetFileNameWithoutExtension(projectPath)
-    let basePath = "src/" + projectName + "/Properties"
+    let basePath = System.IO.Path.GetDirectoryName(projectPath)
     let fileName = basePath + "/AssemblyInfo.cs"
     
     // Remove readonly flag
@@ -155,6 +167,41 @@ Target "Run NUnit Tests" (fun _ ->
 )
 
 Target "RunTests" DoNothing
+
+// --------------------------------------------------------------------------------------
+// Build deployables
+
+let copyProjectOutputs rootOutputPath projectPath =
+    let projectName = System.IO.Path.GetFileNameWithoutExtension(projectPath)
+    let projectDir = System.IO.Path.GetDirectoryName(projectPath)
+    let srcDir = projectDir @@ "bin/Release"    
+    let destDir = rootOutputPath @@ projectName
+
+    sprintf "Cleaning dir: %s" destDir |> log
+    CleanDir destDir
+
+    sprintf "Copying deployables for %s" projectName |> log
+    let logCopy file =
+        sprintf ">>>>%s" file |> log
+
+    CopyRecursive srcDir destDir true
+    |> Seq.iter logCopy
+
+
+Target "CopyDeployables" (fun _ ->
+    let fsProjs =  
+        !! "src/**/*.fsproj"
+            -- "tests/**/*Test*.fsproj"
+
+    let csProjs = 
+        !! "src/**/*.csproj"
+            -- "tests/**/*Test*.csproj"
+    
+    let cpy = copyProjectOutputs "deployables"
+
+    fsProjs |> Seq.iter cpy
+    csProjs |> Seq.iter cpy
+)
 
 #if MONO
 #else
@@ -367,20 +414,15 @@ Target "Restore-Dependencies" (fun _ ->
 
 Target "All" DoNothing
 
-"Run xUnit Tests"
-  ==> "RunTests"
-
-"Run NUnit Tests"
- ==> "RunTests"
-
 "Clean"
   ==> "AssemblyInfo"
   ==> "Build"
+  ==> "CopyDeployables"
   ==> "RunTests"
-  =?> ("GenerateReferenceDocs",isLocalBuild && not isMono)
-  =?> ("GenerateDocs",isLocalBuild && not isMono)
+  =?> ("GenerateReferenceDocs",shouldGenerateDocs)
+  =?> ("GenerateDocs",shouldGenerateDocs)
   ==> "All"
-  =?> ("ReleaseDocs",isLocalBuild && not isMono)
+  =?> ("ReleaseDocs",shouldGenerateDocs)
 
 "All" 
 #if MONO
@@ -406,5 +448,12 @@ Target "All" DoNothing
 
 "BuildPackage"
   ==> "Release"
+
+"Run xUnit Tests"
+  ==> "RunTests"
+
+//"Run NUnit Tests"
+// ==> "RunTests"
+
 
 RunTargetOrDefault "All"
