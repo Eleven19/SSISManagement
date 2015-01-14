@@ -39,7 +39,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\CatalogDataService.cs" />
+    <Compile Include="Data\Catalog\Parameters\CreateExecutionParameters.cs" />
+    <Compile Include="Data\SsisDatabase.cs" />
     <Compile Include="Data\ProjectInfo.cs" />
     <Compile Include="DbConnectionGuard.cs" />
     <Compile Include="DeployedProjectFacade.cs" />

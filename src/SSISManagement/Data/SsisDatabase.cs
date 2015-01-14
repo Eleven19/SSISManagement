@@ -3,14 +3,20 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
+using SqlServer.Management.IntegrationServices.Data.Catalog.Parameters;
 
 namespace SqlServer.Management.IntegrationServices.Data
-{    
-    public abstract class CatalogDataService
+{
+    public interface IDatabase
+    {
+        IDbConnection GetConnection();
+    }
+    public abstract class SsisDatabase : IDatabase
     {
         public abstract IDbConnection GetConnection();
 
-        protected internal abstract int StartExecution(long executionId);
+        public abstract long CreateExecution(CreateExecutionParameters parameters);
+        public abstract int StartExecution(long executionId);
 
         public long ExecutePackage(ProjectInfo project, string packageName)
         {
