@@ -33,7 +33,7 @@ let project = "SqlServer.Management.IntegrationServices"
 
 // Short summary of the project
 // (used as description in AssemblyInfo and as a short summary for NuGet package)
-let summary = "SQL Server Integration Services management library for executing and working with SSIS packages"
+let summary = "SQL Server Integration Services management library for executing and working with SSIS packages located in the integration services catalog."
 
 // Longer description of the project
 // (used as a description for NuGet package; line breaks are automatically cleaned up)
