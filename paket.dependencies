@@ -8,6 +8,7 @@ nuget FAKE
 nuget SourceLink.Fake
 nuget FSharp.Data.SqlClient
 nuget Insight.Database
+nuget FluentValidation
 nuget FSharp.Core ~> 3.1
 nuget UnionArgParser
 nuget Xbehave ~> 1.1

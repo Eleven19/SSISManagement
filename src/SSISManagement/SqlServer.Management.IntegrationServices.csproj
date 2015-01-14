@@ -40,8 +40,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\Catalog\Parameters\CreateExecutionParameters.cs" />
+    <Compile Include="Data\Catalog\Parameters\DeleteFolderParameters.cs" />
     <Compile Include="Data\SsisDatabase.cs" />
     <Compile Include="Data\ProjectInfo.cs" />
+    <Compile Include="Data\SsisDatabaseExtensions.cs" />
     <Compile Include="DbConnectionGuard.cs" />
     <Compile Include="DeployedProjectFacade.cs" />
     <Compile Include="IProject.cs" />
