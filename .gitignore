@@ -2,6 +2,7 @@
 # Exclude our custom stuff
 # ===================================================
 .testResults/
+deployables/
 
 # ===================================================
 # Standard stuff below
