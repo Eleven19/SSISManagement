@@ -41,10 +41,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\ResourceHelper.cs" />
+    <Compile Include="Data\CatalogProperty.cs" />
     <Compile Include="Data\Catalog\Parameters\CreateExecutionParameters.cs" />
     <Compile Include="Data\Catalog\Parameters\CreateFolderParameters.cs" />
     <Compile Include="Data\Catalog\Parameters\DeleteFolderParameters.cs" />
     <Compile Include="Data\ConnectionStrings.cs" />
+    <Compile Include="Data\IDatabase.cs" />
     <Compile Include="Data\SsisDatabase.cs" />
     <Compile Include="Data\ProjectInfo.cs" />
     <Compile Include="Data\SsisDatabaseExtensions.cs" />
@@ -62,7 +65,6 @@
     <Compile Include="SsisConfiguration.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Core\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
@@ -70,6 +72,7 @@
     <None Include="paket.references" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Data\Sql\GetCatalogProperties.sql" />
     <Content Include="FodyWeavers.xml">
       <SubType>Designer</SubType>
     </Content>

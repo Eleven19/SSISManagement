@@ -27,6 +27,6 @@ namespace SqlServer.Management.IntegrationServices
         /// <param name="folderName">The name of the folder that is to be deleted.</param>
         void DeleteFolder(string folderName);
 
-        SsisDatabase Database { get; }
+        ISsisDatabase Database { get; }
     }
 }

@@ -13,18 +13,18 @@ namespace SqlServer.Management.IntegrationServices.Data
 {
     public class SsisDatabaseTests
     {
-        private SsisDatabase _database;
-
         public SsisDatabaseTests()
         {
-            _database = TestHelper.GetSqlConnection().AsParallel<SsisDatabase>();
+            Database = TestHelper.GetSqlConnection().AsParallel<SsisDatabase>();
         }
+
+        public SsisDatabase Database { get; private set; }
 
         [Background]
         public void Background()
         {
             "Given a database object"
-                ._(() => _database = TestHelper.GetSqlConnection().AsParallel<SsisDatabase>());
+                ._(() => Database = TestHelper.GetSqlConnection().AsParallel<SsisDatabase>());
         }
         [Fact]
         public void ShouldBeCreatableByInsightDatabase()
@@ -43,14 +43,14 @@ namespace SqlServer.Management.IntegrationServices.Data
         [Fact]
         public void CallingGetConnectionShouldSucceed()
         {
-            Action action = () => _database.GetConnection();
+            Action action = () => Database.GetConnection();
             action.ShouldNotThrow();
         }
 
         [Fact]
         public void CallingStartupShouldSucceed()
         {
-            Action action = ()=>_database.Startup();
+            Action action = ()=>Database.Startup();
             action.ShouldNotThrow();
         }
 
@@ -59,10 +59,21 @@ namespace SqlServer.Management.IntegrationServices.Data
         public void WhenCreatingAndDeletingFolders(string folderName)
         {
             "When a folder named {0} is created"
-                ._(() => _database.CreateFolder(folderName));
+                ._(() => Database.CreateFolder(folderName));
             "Then we shold be able to  delete it"
-                ._(() => _database.DeleteFolder(folderName));
+                ._(() => Database.DeleteFolder(folderName));
 
+        }
+
+        [Scenario]
+        public void WhenCallingGetCatalogProperties(IList<CatalogProperty> properties)
+        {
+            "When calling GetCatalogProperties()"
+                ._(() => properties = Database.GetCatalogProperties());
+            "Then the properties should list should not be null or empty"
+                ._(() => properties.Should().NotBeNullOrEmpty());
+            "And the list should contain the SCHEMA_BUILD property"
+                ._(() => properties.Should().Contain(prop => prop.PropertyName == "SCHEMA_BUILD"));
         }
 
         [Scenario]
@@ -71,7 +82,7 @@ namespace SqlServer.Management.IntegrationServices.Data
             "When calling ExecutePackage(...) for a package that doesn't exist"
                 ._(
                     () =>
-                        _database.ExecutePackage(new ProjectInfo("SSISManagementExamples", "SampleSSIS2012Project"),"IDONTEXIST"));
+                        Database.ExecutePackage(new ProjectInfo("SSISManagementExamples", "SampleSSIS2012Project"),"IDONTEXIST"));
         }
     }
 }

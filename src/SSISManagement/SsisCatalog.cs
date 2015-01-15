@@ -21,7 +21,7 @@ namespace SqlServer.Management.IntegrationServices
     public class SsisCatalog : ISsisCatalog
     {
         private readonly IDbConnection _connection;
-        private Lazy<SsisDatabase> _databaseAccessor;
+        private readonly Lazy<SsisDatabase> _databaseAccessor;
 
         /// <summary>
         /// Create the catalog using a supplied <see cref="IDbConnection"/> instance.
@@ -59,9 +59,9 @@ namespace SqlServer.Management.IntegrationServices
             Database.DeleteFolder(folderName);
         }
 
-        public SsisDatabase Database
+        public ISsisDatabase Database
         {
-            get { return Connection.AsParallel<SsisDatabase>(); }
+            get { return _databaseAccessor.Value; }
         }
 
         public IDeployedProject GetProject(string folderName, string projectName)
