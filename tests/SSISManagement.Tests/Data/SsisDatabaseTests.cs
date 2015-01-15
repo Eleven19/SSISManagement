@@ -55,10 +55,12 @@ namespace SqlServer.Management.IntegrationServices.Data
         }
 
         [Scenario]
-        [Example("DELETE_ME")]
-        public void WhenDeletingAFolder(string folderName)
+        [Example("SSISManagement_Tests_DELETE_ME")]
+        public void WhenCreatingAndDeletingFolders(string folderName)
         {
-            "When deleting a folder named {0}"
+            "When a folder named {0} is created"
+                ._(() => _database.CreateFolder(folderName));
+            "Then we shold be able to  delete it"
                 ._(() => _database.DeleteFolder(folderName));
 
         }

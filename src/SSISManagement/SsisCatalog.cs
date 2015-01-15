@@ -12,7 +12,11 @@ using SqlServer.Management.IntegrationServices.Data;
 namespace SqlServer.Management.IntegrationServices
 {
     public class SsisCatalog : ISsisCatalog
-    {        
+    {
+        static SsisCatalog()
+        {
+            SqlInsightDbProvider.RegisterProvider();
+        }
         /// <summary>
         /// A regular expression used to detect connection string names.
         /// </summary>

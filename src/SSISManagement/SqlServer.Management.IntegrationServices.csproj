@@ -11,6 +11,7 @@
     <AssemblyName>SqlServer.Management.IntegrationServices</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>10808ed2</NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -41,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\Catalog\Parameters\CreateExecutionParameters.cs" />
+    <Compile Include="Data\Catalog\Parameters\CreateFolderParameters.cs" />
     <Compile Include="Data\Catalog\Parameters\DeleteFolderParameters.cs" />
     <Compile Include="Data\SsisDatabase.cs" />
     <Compile Include="Data\ProjectInfo.cs" />
@@ -50,6 +52,7 @@
     <Compile Include="IProject.cs" />
     <Compile Include="ISsisCatalog.cs" />
     <Compile Include="IDeployedProject.cs" />
+    <Compile Include="ModuleInitializer.cs" />
     <Compile Include="ProjectFacade.cs" />
     <Compile Include="ProjectFacadeBase.cs" />
     <Compile Include="SsisCatalog.cs" />
@@ -60,7 +63,13 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
     <None Include="paket.references" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="FodyWeavers.xml">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -163,4 +172,11 @@
       </ItemGroup>
     </When>
   </Choose>
+  <Import Project="..\..\packages\Fody.1.26.4\build\Fody.targets" Condition="Exists('..\..\packages\Fody.1.26.4\build\Fody.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <!--<Error Condition="!Exists('..\..\packages\Fody.1.26.4\build\Fody.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Fody.1.26.4\build\Fody.targets'))" />-->
+  </Target>
 </Project>

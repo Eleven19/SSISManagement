@@ -10,8 +10,7 @@ namespace SqlServer.Management.IntegrationServices.Data
     public class InsightDatabaseTests
     {
         public InsightDatabaseTests()
-        {
-            InsightDbProvider.RegisterProvider(new SqlInsightDbProvider());
+        {            
             Connection = Testing.TestHelper.GetSqlConnection();
             SsisDb = Connection.As<ISsisDb>();
             SsisDbAsParallel = Connection.AsParallel<ISsisDb>();
@@ -53,8 +52,8 @@ namespace SqlServer.Management.IntegrationServices.Data
         void Startup();
     }
 
-    public abstract class SsisDb
+    public abstract class SsisDb : IDatabase
     {
-        public abstract IDbConnection GetConnection();
+        public abstract IDbConnection GetConnection();        
     }
 }

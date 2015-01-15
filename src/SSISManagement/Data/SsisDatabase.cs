@@ -32,10 +32,17 @@ namespace SqlServer.Management.IntegrationServices.Data
         [Sql("delete_folder", Schema = "catalog")]
         public abstract void DeleteFolder(DeleteFolderParameters parameters);
 
+        public long CreateFolder(CreateFolderParameters parameters)
+        {
+            var connection = GetConnection();
+            connection.Execute("catalog.create_folder", parameters);
+            return parameters.FolderId;
+        }
+
         public long ExecutePackage(ProjectInfo project, string packageName)
         {
             var connection = GetConnection();
             throw new NotImplementedException();
         }
-    }
+    }    
 }

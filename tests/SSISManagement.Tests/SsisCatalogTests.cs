@@ -54,8 +54,8 @@ namespace SqlServer.Management.IntegrationServices
                 });
             "Then the Connection should be the same as the one passed in to the ctor"
                 ._(() => catalog.Connection.Should().BeSameAs(connection));
-            "And calling GetConnection() off of the Database property should return an equivalent connection"
-                ._(() => catalog.Database.GetConnection().ShouldBeEquivalentTo(connection, o=>o.Including(x=>x.ConnectionString)));
+            //"And calling GetConnection() off of the Database property should return an equivalent connection"
+            //    ._(() => catalog.Database.GetConnection().ShouldBeEquivalentTo(connection, o=>o.Including(x=>x.ConnectionString)));
         }
 
         

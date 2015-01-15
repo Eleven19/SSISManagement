@@ -8,5 +8,10 @@ namespace SqlServer.Management.IntegrationServices.Data
         {
             db.DeleteFolder(new DeleteFolderParameters(folderName));
         }
+
+        public static long CreateFolder(this SsisDatabase db, string folderName)
+        {
+            return db.CreateFolder(new CreateFolderParameters(folderName));
+        }
     }
 }
