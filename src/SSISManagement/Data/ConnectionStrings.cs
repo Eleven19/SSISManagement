@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Text.RegularExpressions;
 
@@ -15,8 +16,15 @@ namespace SqlServer.Management.IntegrationServices.Data
 
         private static ConnectionStringLookup _connectionStringLookup = connectionStringName =>
         {
-            var setting = ConfigurationManager.ConnectionStrings[connectionStringName];
-            return setting.ConnectionString;
+            var connectionStringSettings = ConfigurationManager.ConnectionStrings[connectionStringName];
+            if (connectionStringSettings == null)
+            {
+                throw new KeyNotFoundException("Could not locate a connection string by the name of '"
+                                               + connectionStringName
+                                               + "' in the application's configuration. "
+                                               + "Make sure the connection name exists in app.config or web.config.");
+            }
+            return connectionStringSettings.ConnectionString;
         };
 
         /// <summary>

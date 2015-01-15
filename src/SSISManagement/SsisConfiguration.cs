@@ -3,12 +3,20 @@ using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Threading;
+using Insight.Database;
 using SqlServer.Management.IntegrationServices.Data;
 
 namespace SqlServer.Management.IntegrationServices
 {
     public class SsisConfiguration
     {
+        static SsisConfiguration()
+        {
+            // Ensure we register the SqlInsightDbProvider
+            // TODO: Consider moving this call closer to where the Insight.Database dependency is actually used
+            SqlInsightDbProvider.RegisterProvider();
+        }
+
         private Func<string, IDbConnection> _connectionProvider = connectionStringOrName =>
         {
             var connectionString = ConnectionStrings.GetConnectionStringResolved(connectionStringOrName);            
