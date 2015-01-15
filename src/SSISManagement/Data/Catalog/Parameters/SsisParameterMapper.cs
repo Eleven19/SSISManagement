@@ -29,7 +29,8 @@ namespace SqlServer.Management.IntegrationServices.Data.Catalog.Parameters
                     var id = match.Groups["id"].Value;
                     return System.Globalization.CultureInfo.InvariantCulture.TextInfo.ToTitleCase(id);
                 });
-                
+
+                //TODO: For completeness we should check if the member exists, but for now lets do this until we hit issues
                 Debug.WriteLine("Mapping ParameterName={0}; to Member={1};", parameter.ParameterName, member);
                 return member;
             }
