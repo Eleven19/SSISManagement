@@ -43,6 +43,7 @@
     <Compile Include="Data\InsightDatabaseTests.cs" />
     <Compile Include="Data\SsisDatabaseTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SsisApplicationTests.cs" />
     <Compile Include="SsisCatalogTests.cs" />
     <Compile Include="Testing\TestHelper.cs" />
   </ItemGroup>
