@@ -5,6 +5,7 @@ using System.Text;
 using FluentAssertions;
 using Insight.Database;
 using Insight.Database.Providers;
+using SqlServer.Management.IntegrationServices.Data.Dtos;
 using SqlServer.Management.IntegrationServices.Testing;
 using Xbehave;
 using Xunit;

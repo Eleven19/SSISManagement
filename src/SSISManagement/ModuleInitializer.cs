@@ -1,4 +1,5 @@
 ﻿using Insight.Database;
+using SqlServer.Management.IntegrationServices.Data.Catalog.Parameters;
 
 /// <summary>
 /// Used by the ModuleInit. All code inside the Initialize method is ran as soon as the assembly is loaded.
@@ -11,5 +12,6 @@ public static class ModuleInitializer
     public static void Initialize()
     {
         SqlInsightDbProvider.RegisterProvider();
+        ColumnMapping.Parameters.AddMapper(new SsisParameterMapper());
     }
 }

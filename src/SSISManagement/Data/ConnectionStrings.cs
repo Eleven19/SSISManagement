@@ -14,6 +14,9 @@ namespace SqlServer.Management.IntegrationServices.Data
         public static readonly Regex ConnectionStringNameSpecificationRegex
             = new Regex(@"^\s*(?<key>name)\s*=\s*(?<value>.*)", RegexOptions.Compiled);
 
+        public static Regex SsisConnectionStringRegex =
+            new Regex(@"(?<server>(Database|Initial\s*Catalog))\s*=\s*SSISDB", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+
         private static ConnectionStringLookup _connectionStringLookup = connectionStringName =>
         {
             var connectionStringSettings = ConfigurationManager.ConnectionStrings[connectionStringName];
@@ -58,6 +61,11 @@ namespace SqlServer.Management.IntegrationServices.Data
         {
             if (connectionStringLookup == null) throw new ArgumentNullException("connectionStringLookup");
             _connectionStringLookup = connectionStringLookup;
+        }
+
+        public static bool IsSsisConnectionString(string connectionString)
+        {
+            return SsisConnectionStringRegex.IsMatch(connectionString);
         }
     }
 }

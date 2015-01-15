@@ -7,6 +7,7 @@ using System.Text;
 using Insight.Database;
 using SqlServer.Management.IntegrationServices.Core;
 using SqlServer.Management.IntegrationServices.Data.Catalog.Parameters;
+using SqlServer.Management.IntegrationServices.Data.Dtos;
 
 namespace SqlServer.Management.IntegrationServices.Data
 {
