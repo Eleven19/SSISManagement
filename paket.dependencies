@@ -20,5 +20,6 @@ nuget FSharp.Core
 nuget Insight.Database
 nuget UnionArgParser
 nuget Insight.Database
+nuget FluentValidation
 
 github fsharp/FAKE modules/Octokit/Octokit.fsx

@@ -4,6 +4,7 @@ NUGET
     FAKE (3.13.3)
     FakeItEasy (1.25.1)
     FluentAssertions (3.2.2)
+    FluentValidation (5.5.0.0)
     FSharp.Compiler.Service (0.0.81)
     FSharp.Core (3.1.2.1)
     FSharp.Data.SqlClient (1.5.7)

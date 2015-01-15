@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Insight.Database;
 
 namespace SqlServer.Management.IntegrationServices.Data.Catalog.Parameters
 {
@@ -14,6 +15,7 @@ namespace SqlServer.Management.IntegrationServices.Data.Catalog.Parameters
             _folderName = folderName;
         }
 
+        [Column("folder_name")]
         public string FolderName
         {
             get { return _folderName; }
