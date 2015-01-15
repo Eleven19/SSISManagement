@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Text.RegularExpressions;
 using Insight.Database;
 using SqlServer.Management.IntegrationServices.Data;
+using SqlServer.Management.IntegrationServices.Data.Catalog.Parameters;
 
 namespace SqlServer.Management.IntegrationServices
 {
@@ -88,6 +89,16 @@ namespace SqlServer.Management.IntegrationServices
             get { return _connection; }
         }
 
+        public long CreateFolder(string folderName)
+        {
+            return Database.CreateFolder(folderName);
+        }
+
+        public void DeleteFolder(string folderName)
+        {
+            throw new NotImplementedException();
+        }
+
         public SsisDatabase Database
         {
             get { return Connection.AsParallel<SsisDatabase>(); }
@@ -104,6 +115,11 @@ namespace SqlServer.Management.IntegrationServices
             _connectionStringByNameResolver = resolver;
         }
 
+        public IDeployedProject GetProject(string folderName, string projectName)
+        {
+            return new DeployedProjectFacade(folderName, projectName);
+        }  
+
         /// <summary>
         /// Get a connection by a connection string or connection name.
         /// </summary>
@@ -118,11 +134,6 @@ namespace SqlServer.Management.IntegrationServices
                 return new SqlConnection(connectString);
             }
             return new SqlConnection(connectionStringOrName);
-        }
-
-        public IDeployedProject GetProject(string folderName, string projectName)
-        {
-            return new DeployedProjectFacade(folderName, projectName);
-        }        
+        }      
     }
 }
