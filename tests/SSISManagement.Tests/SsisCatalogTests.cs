@@ -78,7 +78,7 @@ namespace SqlServer.Management.IntegrationServices
             "Given an SsisConfiguration instance"
                 ._(() => config = new SsisConfiguration());
             "When SetConnectionProvider is passed a null"
-                ._(() => config.Invoking(cfg => cfg.SetConnectionProvider(null)));
+                ._(() => theCall = config.Invoking(cfg => cfg.SetConnectionProvider(null)));
             "Then we should throw an ArgumentNullException"
                 ._(() => theCall.ShouldThrow<ArgumentNullException>().Where(ex => ex.ParamName == "connectionProvider"));
         }
