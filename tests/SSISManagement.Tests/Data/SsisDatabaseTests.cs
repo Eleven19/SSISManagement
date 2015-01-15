@@ -78,12 +78,20 @@ namespace SqlServer.Management.IntegrationServices.Data
         }
 
         [Scenario]
-        public void WhenCallingExecutePackageForAPackageWhichDoesntExist()
-        {            
+        public void WhenCallingExecutePackageForAPackageWhichDoesntExist(Action theCall)
+        {
             "When calling ExecutePackage(...) for a package that doesn't exist"
-                ._(
-                    () =>
-                        Database.ExecutePackage(new ProjectInfo("SSISManagementExamples", "SampleSSIS2012Project"),"IDONTEXIST"));
+                ._(() =>
+                {
+                    theCall =
+                        Database.Invoking(
+                            db =>
+                                db.ExecutePackage(new ProjectInfo("SSISManagementExamples", "SampleSSIS2012Project"),
+                                    "IDONTEXIST"));
+                });
+
+            "Then ExecutePackage should throw a package access exception."
+                ._(() => theCall.ShouldThrow<PackageAccessException>());
         }
     }
 }

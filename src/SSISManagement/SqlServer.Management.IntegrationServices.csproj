@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\ExceptionHelper.cs" />
     <Compile Include="Core\ResourceHelper.cs" />
     <Compile Include="Data\Catalog\CatalogParameterTypes.cs" />
     <Compile Include="Data\Catalog\Parameters\SetExecutionParameterValueParameters.cs" />
@@ -51,6 +52,7 @@
     <Compile Include="Data\Catalog\Parameters\DeleteFolderParameters.cs" />
     <Compile Include="Data\ConnectionStrings.cs" />
     <Compile Include="Data\IDatabase.cs" />
+    <Compile Include="Data\ISsisDatabase.cs" />
     <Compile Include="Data\SsisDatabase.cs" />
     <Compile Include="Data\ProjectInfo.cs" />
     <Compile Include="Data\SsisDatabaseExtensions.cs" />
@@ -61,8 +63,11 @@
     <Compile Include="ISsisCatalog.cs" />
     <Compile Include="IDeployedProject.cs" />
     <Compile Include="ModuleInitializer.cs" />
+    <Compile Include="PackageExecutionException.cs" />
     <Compile Include="ProjectFacade.cs" />
     <Compile Include="ProjectFacadeBase.cs" />
+    <Compile Include="SsisApplication.cs" />
+    <Compile Include="SsisApplicationExtensions.cs" />
     <Compile Include="SsisCatalog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SsisConfiguration.cs" />

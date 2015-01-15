@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using FluentAssertions;
 using Xbehave;
+using Xunit;
+using Xunit.Extensions;
 
 namespace SqlServer.Management.IntegrationServices
 {
@@ -39,6 +42,28 @@ namespace SqlServer.Management.IntegrationServices
                 });
             "Then the Configuration property should be the same as the passed in configuration"
                 ._(() => application.Configuration.Should().BeSameAs(configuration));
+        }
+
+        [Scenario, PropertyData("WhenGettingCatalogByConnectionStringOrNameData")]
+        public void WhenGettingCatalogByConnectionStringOrName(string connectionStringOrName, ISsisApplication application, ISsisCatalog catalog)
+        {
+            "Given an ISsisApplication instance"
+                ._(() => application = new SsisApplication());
+
+            "When getting catalog by connection string or name"
+                ._(() => catalog = application.GetCatalog(connectionStringOrName));
+
+            "Then the catalog should not be null"
+                ._(() => catalog.Should().NotBeNull());
+
+        }
+
+        public static IEnumerable<object[]> WhenGettingCatalogByConnectionStringOrNameData
+        {
+            get
+            {
+                yield return new object[]{"name=SSISDB"};
+            }
         }
     }
 }

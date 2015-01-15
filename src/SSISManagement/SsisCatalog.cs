@@ -66,7 +66,9 @@ namespace SqlServer.Management.IntegrationServices
 
         public IDeployedProject GetProject(string folderName, string projectName)
         {
-            return new DeployedProjectFacade(folderName, projectName);
+            var project = new DeployedProjectFacade(folderName, projectName);
+            project.SetConnection(Connection);
+            return project;
         }    
     }
 }

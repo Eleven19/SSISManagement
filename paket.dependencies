@@ -21,5 +21,9 @@ nuget Insight.Database
 nuget UnionArgParser
 nuget Insight.Database
 nuget FluentValidation
+nuget TopShelf
+nuget Autofac
+nuget Microsoft.AspNet.WebApi.Owin ~> 5.2
+nuget Microsoft.AspNet.WebApi.OwinSelfHost ~> 5.2
 
 github fsharp/FAKE modules/Octokit/Octokit.fsx

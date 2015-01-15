@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -11,18 +13,6 @@ using SqlServer.Management.IntegrationServices.Data.Dtos;
 
 namespace SqlServer.Management.IntegrationServices.Data
 {
-    public interface ISsisDatabase : IDatabase
-    {
-        [Sql("startup", Schema = "catalog")]
-        void Startup();
-
-        long CreateFolder(CreateFolderParameters parameters);
-        void DeleteFolder(DeleteFolderParameters parameters);
-        long CreateExecution(CreateExecutionParameters parameters);
-        long ExecutePackage(ProjectInfo project, string packageName);
-        IList<CatalogProperty> GetCatalogProperties();
-    }
-
     public abstract class SsisDatabase : ISsisDatabase
     {
         private static readonly Type ThisType = typeof (SsisDatabase);
@@ -31,7 +21,10 @@ namespace SqlServer.Management.IntegrationServices.Data
         [Sql("startup", Schema = "catalog")]
         public abstract void Startup();
 
+        [Sql("create_execution", Schema = "catalog")]
         public abstract long CreateExecution(CreateExecutionParameters parameters);
+
+        [Sql("start_execution", Schema = "catalog")]
         public abstract int StartExecution(long executionId);
 
         [Sql("delete_folder", Schema = "catalog")]
@@ -44,10 +37,20 @@ namespace SqlServer.Management.IntegrationServices.Data
             return parameters.FolderId;
         }
 
-        public long ExecutePackage(ProjectInfo project, string packageName)
+        public long ExecutePackage(ProjectInfo project, string packageName, long? referenceId = null, bool use32BitRuntime = false)
         {
-            var connection = GetConnection();
-            throw new NotImplementedException();
+            try
+            {
+                var connection = GetConnection();
+                var createExecParams = new CreateExecutionParameters(project.Folder, project.Name, packageName,
+                    referenceId, use32BitRuntime);
+                var executionId = CreateExecution(createExecParams);
+                return executionId;
+            }
+            catch (SqlException ex)
+            {
+                throw ex.WrapSqlException();
+            }
         }
 
         public virtual IList<CatalogProperty> GetCatalogProperties()
