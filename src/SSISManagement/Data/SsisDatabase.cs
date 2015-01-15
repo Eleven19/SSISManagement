@@ -21,8 +21,12 @@ namespace SqlServer.Management.IntegrationServices.Data
         [Sql("startup", Schema = "catalog")]
         public abstract void Startup();
 
-        [Sql("create_execution", Schema = "catalog")]
-        public abstract long CreateExecution(CreateExecutionParameters parameters);
+        public long CreateExecution(CreateExecutionParameters parameters)
+        {
+            var connection = GetConnection();
+            connection.Execute("catalog.create_execution", parameters);
+            return parameters.ExecutionId;
+        }
 
         [Sql("start_execution", Schema = "catalog")]
         public abstract int StartExecution(long executionId);

@@ -86,12 +86,27 @@ namespace SqlServer.Management.IntegrationServices.Data
                     theCall =
                         Database.Invoking(
                             db =>
-                                db.ExecutePackage(new ProjectInfo("SSISManagementExamples", "SampleSSIS2012Project"),
+                                db.ExecutePackage(new ProjectInfo("SSISManagement-Examples", "SampleSSIS2012Project"),
                                     "IDONTEXIST"));
                 });
 
             "Then ExecutePackage should throw a package access exception."
                 ._(() => theCall.ShouldThrow<PackageAccessException>());
+        }
+
+        [Scenario]
+        public void WhenCallingExecutePackageOnAParameterlessPackage(long executionId)
+        {
+            "When calling ExecutePackage(...) for a package that doesn't exist"
+                ._(() =>
+                {
+                    executionId =
+                        Database.ExecutePackage(new ProjectInfo("SSISManagement-Examples", "SampleSSIS2012Project"),
+                            "EmptyParameterlessPackage.dtsx");
+                });
+
+            "Then the returned execution_id should be non-zero."
+                ._(() => executionId.Should().NotBe(0));
         }
     }
 }
