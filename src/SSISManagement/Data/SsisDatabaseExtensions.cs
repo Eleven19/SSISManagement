@@ -14,10 +14,5 @@ namespace SqlServer.Management.IntegrationServices.Data
         {
             return db.CreateExecution(new CreateExecutionParameters(folderName, projectName, packageName, referenceId, use32BitRuntime));
         }
-
-        public static void DeleteFolder(this ISsisDatabase db, string folderName)
-        {
-            db.DeleteFolder(new DeleteFolderParameters(folderName));
-        }
     }
 }

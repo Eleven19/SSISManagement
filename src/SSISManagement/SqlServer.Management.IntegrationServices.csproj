@@ -49,7 +49,6 @@
     <Compile Include="Data\Dtos\CatalogProperty.cs" />
     <Compile Include="Data\Catalog\Parameters\CreateExecutionParameters.cs" />
     <Compile Include="Data\Catalog\Parameters\CreateFolderParameters.cs" />
-    <Compile Include="Data\Catalog\Parameters\DeleteFolderParameters.cs" />
     <Compile Include="Data\ConnectionStrings.cs" />
     <Compile Include="Data\IDatabase.cs" />
     <Compile Include="Data\ISsisDatabase.cs" />

@@ -5,16 +5,17 @@ using System.Data.SqlClient;
 using System.Threading;
 using Insight.Database;
 using SqlServer.Management.IntegrationServices.Data;
+using SqlServer.Management.IntegrationServices.Data.Catalog.Parameters;
 
 namespace SqlServer.Management.IntegrationServices
 {
     public class SsisConfiguration
     {
+        private static bool _hasInsightBeenInitialized;
+
         static SsisConfiguration()
         {
-            // Ensure we register the SqlInsightDbProvider
-            // TODO: Consider moving this call closer to where the Insight.Database dependency is actually used
-            SqlInsightDbProvider.RegisterProvider();
+            EnsureInsightIsInitialized();
         }
 
         private Func<string, IDbConnection> _connectionProvider = connectionStringOrName =>
@@ -32,6 +33,18 @@ namespace SqlServer.Management.IntegrationServices
         public Func<string, IDbConnection> ConnectionProvider
         {
             get { return _connectionProvider; }
+        }
+
+        internal static void EnsureInsightIsInitialized()
+        {
+            if (!_hasInsightBeenInitialized)
+            {
+                // Ensure we register the SqlInsightDbProvider
+                // TODO: Consider moving this call closer to where the Insight.Database dependency is actually used
+                SqlInsightDbProvider.RegisterProvider();
+                ColumnMapping.Parameters.AddMapper(new SsisParameterMapper());
+                _hasInsightBeenInitialized = true;
+            }
         }
 
         /// <summary>

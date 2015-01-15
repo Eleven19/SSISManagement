@@ -1,4 +1,5 @@
 ﻿using Insight.Database;
+using SqlServer.Management.IntegrationServices;
 using SqlServer.Management.IntegrationServices.Data.Catalog.Parameters;
 
 /// <summary>
@@ -11,7 +12,6 @@ public static class ModuleInitializer
     /// </summary>
     public static void Initialize()
     {
-        SqlInsightDbProvider.RegisterProvider();
-        ColumnMapping.Parameters.AddMapper(new SsisParameterMapper());
+        SsisConfiguration.EnsureInsightIsInitialized();
     }
 }

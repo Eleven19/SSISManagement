@@ -31,8 +31,11 @@ namespace SqlServer.Management.IntegrationServices.Data
         [Sql("start_execution", Schema = "catalog")]
         public abstract int StartExecution(long executionId);
 
-        [Sql("delete_folder", Schema = "catalog")]
-        public abstract void DeleteFolder(DeleteFolderParameters parameters);
+        public virtual void DeleteFolder(string folderName, int? commandTimeout = null)
+        {
+            var connection = GetConnection();
+            connection.Execute("catalog.delete_folder", new {folder_name = folderName}, commandTimeout:commandTimeout);
+        }
 
         public long CreateFolder(CreateFolderParameters parameters)
         {
