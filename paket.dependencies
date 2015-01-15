@@ -25,5 +25,8 @@ nuget TopShelf
 nuget Autofac
 nuget Microsoft.AspNet.WebApi.Owin ~> 5.2
 nuget Microsoft.AspNet.WebApi.OwinSelfHost ~> 5.2
-
+nuget TopShelf
+nuget Microsoft.AspNet.WebApi.OwinSelfHost
+nuget MahApps.Metro ~> 1.0
+nuget MahApps.Metro.Resources
 github fsharp/FAKE modules/Octokit/Octokit.fsx
