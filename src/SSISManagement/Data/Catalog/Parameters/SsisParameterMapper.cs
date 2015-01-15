@@ -12,7 +12,7 @@ namespace SqlServer.Management.IntegrationServices.Data.Catalog.Parameters
     /// </summary>
     internal class SsisParameterMapper : IParameterMapper
     {
-        private static Regex RenameRegex =
+        private static readonly Regex RenameRegex =
             new Regex(@"(?<id>[A-Z,a-z,0-9]+)(?<underscore>_)+");
         public string MapParameter(Type type, IDbCommand command, IDataParameter parameter)
         {
