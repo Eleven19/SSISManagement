@@ -4,7 +4,7 @@ using Insight.Database;
 
 namespace SqlServer.Management.IntegrationServices.Data
 {
-    public interface IFolderRepository : IDatabase
+    public interface IFolderRepository : IRequireDatabase
     {
         /// <summary>
         /// Creates a folder in the Integration Services catalog.

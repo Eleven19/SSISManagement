@@ -13,38 +13,6 @@ namespace SqlServer.Management.IntegrationServices
 {
     public class SsisCatalogTests
     {
-        public SsisCatalogTests()
-        {
-            
-        }
-        public string ConnectionString { get; private set; }
-
-        [Fact]
-        public void WhenCreatedUsingNullConnection()
-        {
-            var ctor = new Action(() =>
-            {
-                var catalog = new SsisCatalog((IDbConnection)null);
-            });
-            ctor.ShouldThrow<ArgumentNullException>()
-                .And.ParamName.Should().Be("connection");
-        }
-
-        [Scenario]
-        public void WhenCreatedUsingDbConnection(SsisCatalog catalog, IDbConnection connection)
-        {
-            "Given a catalog created from a IDbConnection"
-                ._(() =>
-                {
-                    connection = TestHelper.GetSqlConnection();
-                    catalog = new SsisCatalog(connection);
-                });
-            "Then the Connection should be the same as the one passed in to the ctor"
-                ._(() => catalog.Connection.Should().BeSameAs(connection));
-            //"And calling GetConnection() off of the Database property should return an equivalent connection"
-            //    ._(() => catalog.Database.GetConnection().ShouldBeEquivalentTo(connection, o=>o.Including(x=>x.ConnectionString)));
-        }
-
         public class UsingSqlConnectionBuilderConstructor : TestRequiringConnectionStrings
         {
             [Fact]

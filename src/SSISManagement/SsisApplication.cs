@@ -26,11 +26,6 @@ namespace SqlServer.Management.IntegrationServices
             get { return _configuration; }
         }        
 
-        public virtual ISsisCatalog GetCatalog(IDbConnection connection)
-        {
-            return new SsisCatalog(connection);
-        }
-
         public ISsisCatalog GetCatalog(SqlConnectionStringBuilder connectionStringBuilder)
         {
             throw new NotImplementedException();

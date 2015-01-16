@@ -56,7 +56,7 @@ namespace SqlServer.Management.IntegrationServices.Data
         void Startup();
     }
 
-    public abstract class SsisDb : IDatabase
+    public abstract class SsisDb : IRequireDatabase
     {
         public abstract IDbConnection GetConnection();        
     }

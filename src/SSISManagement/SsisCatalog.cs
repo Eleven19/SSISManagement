@@ -21,31 +21,13 @@ namespace SqlServer.Management.IntegrationServices
     public class SsisCatalog : ISsisCatalog
     {
         private readonly SqlConnectionStringBuilder _connectionStringBuilder;
-        private readonly IDbConnection _connection;
         private readonly Lazy<SsisDatabase> _databaseAccessor;
-
-        /// <summary>
-        /// Create the catalog using a supplied <see cref="IDbConnection"/> instance.
-        /// </summary>
-        /// <param name="connection">The connection to the database used by this catalog.</param>
-        /// <exception cref="ArgumentNullException">The value of 'connection' cannot be null. </exception>
-        public SsisCatalog(IDbConnection connection)
-        {
-            if (connection == null) throw new ArgumentNullException("connection");
-            _connection = connection;
-            _databaseAccessor = new Lazy<SsisDatabase>(()=> _connection.AsParallel<SsisDatabase>());
-        }
 
         public SsisCatalog(SqlConnectionStringBuilder connectionStringBuilder)
         {
             if (connectionStringBuilder == null) throw new ArgumentNullException("connectionStringBuilder");
             _connectionStringBuilder = connectionStringBuilder;
             _databaseAccessor = new Lazy<SsisDatabase>(connectionStringBuilder.AsParallel<SsisDatabase>);
-        }
-
-        public IDbConnection Connection
-        {
-            get { return _connection; }
         }
 
         public SqlConnectionStringBuilder ConnectionStringBuilder
@@ -79,9 +61,7 @@ namespace SqlServer.Management.IntegrationServices
 
         public IDeployedProject GetProject(string folderName, string projectName)
         {
-            var project = new DeployedProjectFacade(folderName, projectName);
-            project.SetConnection(Connection);
-            return project;
+            throw new NotImplementedException();
         }    
     }
 }
