@@ -94,8 +94,8 @@ namespace SqlServer.Management.IntegrationServices.Data
                     theCall =
                         Database.Invoking(
                             db =>
-                                db.ExecutePackage(new ProjectInfo("SSISManagement-Examples", "SampleSSIS2012Project"),
-                                    "IDONTEXIST"));
+                                db.ExecutePackage("SSISManagement-Examples", "SampleSSIS2012Project","IDONTEXIST")
+                            );
                 });
 
             "Then ExecutePackage should throw a package access exception."
@@ -111,7 +111,7 @@ namespace SqlServer.Management.IntegrationServices.Data
                 ._(() =>
                 {
                     executionId =
-                        Database.ExecutePackage(new ProjectInfo("SSISManagement-Examples", "SampleSSIS2012Project"),
+                        Database.ExecutePackage("SSISManagement-Examples", "SampleSSIS2012Project",
                             "EmptyParameterlessPackage.dtsx");
                 });
 

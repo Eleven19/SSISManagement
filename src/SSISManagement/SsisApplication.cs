@@ -1,5 +1,6 @@
 using System;
 using System.Data;
+using System.Data.SqlClient;
 
 namespace SqlServer.Management.IntegrationServices
 {
@@ -28,6 +29,11 @@ namespace SqlServer.Management.IntegrationServices
         public virtual ISsisCatalog GetCatalog(IDbConnection connection)
         {
             return new SsisCatalog(connection);
+        }
+
+        public ISsisCatalog GetCatalog(SqlConnectionStringBuilder connectionStringBuilder)
+        {
+            throw new NotImplementedException();
         }
     }
 }

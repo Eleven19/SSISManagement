@@ -39,7 +39,7 @@ namespace SqlServer.Management.IntegrationServices.Data
         }
 
         [Sql("start_execution", Schema = "catalog")]
-        public abstract int StartExecution(long executionId);
+        public abstract int StartExecution(long executionId, int? commandTimeout = null);
 
         /// <summary>
         /// Creates a folder in the Integration Services catalog.
@@ -76,12 +76,12 @@ namespace SqlServer.Management.IntegrationServices.Data
             });
         }
 
-        public long ExecutePackage(ProjectInfo project, string packageName, long? referenceId = null, bool use32BitRuntime = false)
+        public long ExecutePackage(string folderName, string projectName, string packageName, long? referenceId = null, bool use32BitRuntime = false, int? commandTimeout = null)
         {
             try
             {
-                var executionId = CreateExecution(project.Folder, project.Name, packageName,
-                    referenceId, use32BitRuntime);;
+                var executionId = CreateExecution(folderName, projectName, packageName
+                    , referenceId, use32BitRuntime, commandTimeout);
                 
                 return executionId;
             }

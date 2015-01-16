@@ -15,5 +15,17 @@ namespace SqlServer.Management.IntegrationServices.Testing
             var connectionStringSettings = ConfigurationManager.ConnectionStrings["SSISDB"];
             return new SqlConnection(connectionStringSettings.ConnectionString);
         }
+
+        public static string GetConnectionString()
+        {
+            var connectionStringSettings = ConfigurationManager.ConnectionStrings["SSISDB"];
+            return connectionStringSettings.ConnectionString;
+        }
+
+        public static SqlConnectionStringBuilder GetConnectionStringBuilder()
+        {
+            var connectionStringSettings = ConfigurationManager.ConnectionStrings["SSISDB"];
+            return new SqlConnectionStringBuilder(connectionStringSettings.ConnectionString);
+        }
     }
 }

@@ -47,6 +47,7 @@
     <Compile Include="SsisCatalogTests.cs" />
     <Compile Include="SsisConfigurationTests.cs" />
     <Compile Include="Testing\TestHelper.cs" />
+    <Compile Include="Testing\TestRequiringConnectionStrings.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
