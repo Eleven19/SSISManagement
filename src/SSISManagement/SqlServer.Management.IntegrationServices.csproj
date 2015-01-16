@@ -48,9 +48,11 @@
     <Compile Include="Data\Catalog\Parameters\SsisParameterMapper.cs" />
     <Compile Include="Data\DatabaseExtensions.cs" />
     <Compile Include="Data\Dtos\CatalogProperty.cs" />
-    <Compile Include="Data\Catalog\Parameters\CreateExecutionParameters.cs" />
     <Compile Include="Data\ConnectionStrings.cs" />
+    <Compile Include="Data\FastExpandoExtensions.cs" />
+    <Compile Include="Data\ICatalogRepository.cs" />
     <Compile Include="Data\IDatabase.cs" />
+    <Compile Include="Data\IExecutionRepository.cs" />
     <Compile Include="Data\IFolderRepository.cs" />
     <Compile Include="Data\ISsisDatabase.cs" />
     <Compile Include="Data\SsisDatabase.cs" />

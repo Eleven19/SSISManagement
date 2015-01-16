@@ -38,13 +38,6 @@ namespace SqlServer.Management.IntegrationServices.Data
             });
         }
 
-        public long CreateExecution(CreateExecutionParameters parameters)
-        {
-            var connection = GetConnection();
-            connection.Execute("catalog.create_execution", parameters);
-            return parameters.ExecutionId;
-        }
-
         [Sql("start_execution", Schema = "catalog")]
         public abstract int StartExecution(long executionId);
 

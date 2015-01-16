@@ -161,6 +161,7 @@ Target "Run xUnit Tests" (fun _ ->
             ShadowCopy = false
             HtmlOutput = true;
             XmlOutput = true;
+            ExcludeTraits = excludeTraits;
             OutputDir = testResultsDir})
 )
 

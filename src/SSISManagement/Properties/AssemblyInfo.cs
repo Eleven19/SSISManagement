@@ -35,3 +35,5 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
 [assembly:InternalsVisibleTo("SSISManagement.Tests")]
+// Add the below so insight can generate classes against internal objects
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("Insight.Database")]
