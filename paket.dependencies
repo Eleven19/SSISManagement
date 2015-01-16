@@ -12,7 +12,7 @@ nuget FluentValidation
 nuget FSharp.Core ~> 3.1
 nuget UnionArgParser
 nuget Xbehave ~> 1.1
-nuget xunit.runners ~> 1.9
+nuget xunit.runners ~> 2.0.0-beta5-build2785
 nuget xunit.runner.visualstudio >= 0.99 prerelease
 nuget FluentAssertions
 nuget FakeItEasy

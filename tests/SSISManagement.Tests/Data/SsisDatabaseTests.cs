@@ -56,6 +56,8 @@ namespace SqlServer.Management.IntegrationServices.Data
         }
 
         [Scenario]
+        [Trait("Category", "Integration Tests")]
+        [Trait("Category","SSISDB")]
         [Example("SSISManagement_Tests_DELETE_ME")]
         public void WhenCreatingAndDeletingFolders(string folderName)
         {
@@ -67,6 +69,8 @@ namespace SqlServer.Management.IntegrationServices.Data
         }
 
         [Scenario]
+        [Trait("Category", "Integration Tests")]
+        [Trait("Category", "SSISDB")]
         public void WhenCallingGetCatalogProperties(IList<CatalogProperty> properties)
         {
             "When calling GetCatalogProperties()"
@@ -78,6 +82,8 @@ namespace SqlServer.Management.IntegrationServices.Data
         }
 
         [Scenario]
+        [Trait("Category", "Integration Tests")]
+        [Trait("Category", "SSISDB")]
         public void WhenCallingExecutePackageForAPackageWhichDoesntExist(Action theCall)
         {
             "When calling ExecutePackage(...) for a package that doesn't exist"
@@ -95,6 +101,8 @@ namespace SqlServer.Management.IntegrationServices.Data
         }
 
         [Scenario]
+        [Trait("Category", "Integration Tests")]
+        [Trait("Category", "SSISDB")]
         public void WhenCallingExecutePackageOnAParameterlessPackage(long executionId)
         {
             "When calling ExecutePackage(...) for a package that doesn't exist"

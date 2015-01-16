@@ -10,6 +10,7 @@ open Fake.AssemblyInfoFile
 open Fake.ReleaseNotesHelper
 open Fake.ProcessHelper
 open System
+open Fake.XUnit2Helper
 open System.IO
 #if MONO
 #else
@@ -147,13 +148,11 @@ Target "Build" (fun _ ->
 
 Target "Run xUnit Tests" (fun _ ->
     !! testAssemblies
-    |> xUnit (fun p ->
+    |> xUnit2 (fun p ->
         { p with
             ShadowCopy = false
             HtmlOutput = true;
             XmlOutput = true;
-            NUnitXmlOutput = true;
-            Verbose = true;
             OutputDir = testResultsDir})
 )
 
