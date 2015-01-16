@@ -46,11 +46,13 @@
     <Compile Include="Data\Catalog\CatalogParameterTypes.cs" />
     <Compile Include="Data\Catalog\Parameters\SetExecutionParameterValueParameters.cs" />
     <Compile Include="Data\Catalog\Parameters\SsisParameterMapper.cs" />
+    <Compile Include="Data\DatabaseExtensions.cs" />
     <Compile Include="Data\Dtos\CatalogProperty.cs" />
     <Compile Include="Data\Catalog\Parameters\CreateExecutionParameters.cs" />
     <Compile Include="Data\Catalog\Parameters\CreateFolderParameters.cs" />
     <Compile Include="Data\ConnectionStrings.cs" />
     <Compile Include="Data\IDatabase.cs" />
+    <Compile Include="Data\IFolderRepository.cs" />
     <Compile Include="Data\ISsisDatabase.cs" />
     <Compile Include="Data\SsisDatabase.cs" />
     <Compile Include="Data\ProjectInfo.cs" />

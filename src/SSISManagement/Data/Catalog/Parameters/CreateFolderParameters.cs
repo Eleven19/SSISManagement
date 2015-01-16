@@ -2,7 +2,7 @@
 
 namespace SqlServer.Management.IntegrationServices.Data.Catalog.Parameters
 {
-    public class CreateFolderParameters
+    internal class CreateFolderParameters
     {
         private readonly string _folderName;
 
@@ -11,7 +11,7 @@ namespace SqlServer.Management.IntegrationServices.Data.Catalog.Parameters
             _folderName = folderName;
         }
 
-        //[Column("folder_name")]
+        [Column("folder_name")]
         public string FolderName
         {
             get { return _folderName; }

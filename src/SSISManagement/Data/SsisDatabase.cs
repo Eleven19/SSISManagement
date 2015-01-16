@@ -37,9 +37,10 @@ namespace SqlServer.Management.IntegrationServices.Data
             connection.Execute("catalog.delete_folder", new {folder_name = folderName}, commandTimeout:commandTimeout);
         }
 
-        public long CreateFolder(CreateFolderParameters parameters)
+        public long CreateFolder(string folderName)
         {
             var connection = GetConnection();
+            var parameters = new CreateFolderParameters(folderName);
             connection.Execute("catalog.create_folder", parameters);
             return parameters.FolderId;
         }

@@ -8,7 +8,7 @@ namespace SqlServer.Management.IntegrationServices.Data
     public interface ISsisDatabase : IDatabase
     {
         void Startup();
-        long CreateFolder(CreateFolderParameters parameters);
+        long CreateFolder(string folderName);
         void DeleteFolder(string folderName, int? commandTimeout = null);
         long CreateExecution(CreateExecutionParameters parameters);
         long ExecutePackage(ProjectInfo project, string packageName, long? referenceId = null, bool use32BitRuntime = false);
