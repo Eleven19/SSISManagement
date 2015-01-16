@@ -22,6 +22,8 @@ namespace SqlServer.Management.IntegrationServices.Data
         public SsisDb SsisDbFromAbstract { get; set; }
 
         [Fact]
+        [Trait("Category", "Integration Tests")]
+        [Trait("Category", "SSISDB")]
         public void UsingSsisDb_A_CallToStartupShouldSucceed()
         {
             SsisDb
@@ -30,6 +32,8 @@ namespace SqlServer.Management.IntegrationServices.Data
         }
 
         [Fact]
+        [Trait("Category", "Integration Tests")]
+        [Trait("Category", "SSISDB")]
         public void UsingSsisDb_AsParallel_A_CallToStartupShouldSucceed()
         {
             SsisDbAsParallel

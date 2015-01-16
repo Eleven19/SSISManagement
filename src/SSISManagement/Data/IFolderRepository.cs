@@ -13,6 +13,12 @@ namespace SqlServer.Management.IntegrationServices.Data
         /// <param name="commandTimeout">The command timeout.</param>
         /// <returns>The folder identifier is returned.</returns>
         long CreateFolder(string folderName, int? commandTimeout = null);
+
+        /// <summary>
+        /// Deletes a folder from the Integration Services catalog.
+        /// </summary>
+        /// <param name="folderName">The name of the folder that is to be deleted.</param>
+        /// <param name="commandTimeout">The command timeout.</param>
         void DeleteFolder(string folderName, int? commandTimeout = null);
     }
 
@@ -39,6 +45,20 @@ namespace SqlServer.Management.IntegrationServices.Data
                 return parameters.folder_id;
             });
         }
-        public abstract void DeleteFolder(string folderName, int? commandTimeout = null);
+
+        /// <summary>
+        /// Deletes a folder from the Integration Services catalog.
+        /// </summary>
+        /// <param name="folderName">The name of the folder that is to be deleted.</param>
+        /// <param name="commandTimeout">The command timeout.</param>
+        public void DeleteFolder(string folderName, int? commandTimeout = null)
+        {
+            this.WithConnection(conn =>
+            {                
+                conn.Execute("catalog.create_folder"
+                    , new {folder_name = folderName}
+                    , commandTimeout: commandTimeout);
+            });
+        }
     }
 }

@@ -147,6 +147,14 @@ Target "Build" (fun _ ->
 // Run the unit tests using test runner
 
 Target "Run xUnit Tests" (fun _ ->
+
+    // Since we don't have SSIS setup on AppVeyor skip the tests requiring the DB
+    // This is unfortunate because that is quite a bit of tests
+    let excludeTraits =
+        match buildServer with
+        | AppVeyor -> Some ("Category", "SSISDB")
+        | _ -> None
+
     !! testAssemblies
     |> xUnit2 (fun p ->
         { p with

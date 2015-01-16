@@ -5,11 +5,9 @@ using SqlServer.Management.IntegrationServices.Data.Dtos;
 
 namespace SqlServer.Management.IntegrationServices.Data
 {
-    public interface ISsisDatabase : IDatabase
+    public interface ISsisDatabase : IFolderRepository
     {
         void Startup();
-        long CreateFolder(string folderName);
-        void DeleteFolder(string folderName, int? commandTimeout = null);
         long CreateExecution(CreateExecutionParameters parameters);
         long ExecutePackage(ProjectInfo project, string packageName, long? referenceId = null, bool use32BitRuntime = false);
         int StartExecution(long executionId);

@@ -49,6 +49,8 @@ namespace SqlServer.Management.IntegrationServices.Data
         }
 
         [Fact]
+        [Trait("Category", "Integration Tests")]
+        [Trait("Category", "SSISDB")]
         public void CallingStartupShouldSucceed()
         {
             Action action = ()=>Database.Startup();

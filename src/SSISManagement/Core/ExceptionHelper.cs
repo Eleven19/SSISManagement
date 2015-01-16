@@ -15,6 +15,7 @@ namespace SqlServer.Management.IntegrationServices.Core
             {
                 case 27146:
                     return new PackageAccessException(sqlException.Message, sqlException);
+                case 201: // Problem with expected parameter
                 default:
                     return sqlException;
 

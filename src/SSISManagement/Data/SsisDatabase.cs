@@ -14,12 +14,29 @@ using SqlServer.Management.IntegrationServices.Data.Dtos;
 namespace SqlServer.Management.IntegrationServices.Data
 {
     public abstract class SsisDatabase : ISsisDatabase
-    {
+    {        
         private static readonly Type ThisType = typeof (SsisDatabase);
         public abstract IDbConnection GetConnection();
 
         [Sql("startup", Schema = "catalog")]
         public abstract void Startup();
+
+        public long CreateExecution(string folderName, string projectName,
+            string packageName, long? referenceId = null, bool use32BitRuntime = false, int? commandTimeout=null)
+        {
+            return this.WithConnection(conn =>
+            {
+                dynamic parameters = new FastExpando();
+                parameters.folder_name = folderName;
+                parameters.project_name = projectName;
+                parameters.package_name = packageName;
+                parameters.reference_id = referenceId;
+                parameters.use32bitruntime = use32BitRuntime;
+                parameters.execution_id = default(long?);
+                conn.Execute("catalog.create_execution", (FastExpando)parameters, commandTimeout: commandTimeout);
+                return parameters.execution_id;
+            });
+        }
 
         public long CreateExecution(CreateExecutionParameters parameters)
         {
@@ -31,28 +48,48 @@ namespace SqlServer.Management.IntegrationServices.Data
         [Sql("start_execution", Schema = "catalog")]
         public abstract int StartExecution(long executionId);
 
-        public virtual void DeleteFolder(string folderName, int? commandTimeout = null)
+        /// <summary>
+        /// Creates a folder in the Integration Services catalog.
+        /// </summary>
+        /// <param name="folderName">The name of the new folder.</param>
+        /// <param name="commandTimeout">The command timeout.</param>
+        /// <returns>The folder identifier is returned.</returns>
+        /// <exception cref="ArgumentNullException">The value of 'database' cannot be null. </exception>
+        /// <exception cref="Exception">A delegate callback throws an exception. </exception>
+        public long CreateFolder(string folderName, int? commandTimeout = null)
         {
-            var connection = GetConnection();
-            connection.Execute("catalog.delete_folder", new {folder_name = folderName}, commandTimeout:commandTimeout);
+            return this.WithConnection(conn =>
+            {
+                dynamic parameters = new FastExpando();
+                parameters.folder_name = folderName;
+                parameters.folder_id = default(int);
+                conn.Execute("catalog.create_folder", (object)parameters, commandTimeout: commandTimeout);
+                return parameters.folder_id;
+            });
         }
 
-        public long CreateFolder(string folderName)
+        /// <summary>
+        /// Deletes a folder from the Integration Services catalog.
+        /// </summary>
+        /// <param name="folderName">The name of the folder that is to be deleted.</param>
+        /// <param name="commandTimeout">The command timeout.</param>
+        public void DeleteFolder(string folderName, int? commandTimeout = null)
         {
-            var connection = GetConnection();
-            var parameters = new CreateFolderParameters(folderName);
-            connection.Execute("catalog.create_folder", parameters);
-            return parameters.FolderId;
+            this.WithConnection(conn =>
+            {
+                conn.Execute("catalog.create_folder"
+                    , new { folder_name = folderName }
+                    , commandTimeout: commandTimeout);
+            });
         }
 
         public long ExecutePackage(ProjectInfo project, string packageName, long? referenceId = null, bool use32BitRuntime = false)
         {
             try
             {
-                var connection = GetConnection();
-                var createExecParams = new CreateExecutionParameters(project.Folder, project.Name, packageName,
-                    referenceId, use32BitRuntime);
-                var executionId = CreateExecution(createExecParams);
+                var executionId = CreateExecution(project.Folder, project.Name, packageName,
+                    referenceId, use32BitRuntime);;
+                
                 return executionId;
             }
             catch (SqlException ex)
@@ -71,6 +108,6 @@ namespace SqlServer.Management.IntegrationServices.Data
         {
             var resourceName = string.Format("{0}.Sql.{1}",ThisType.Namespace, filename);
             return ThisType.Assembly.GetEmbeddedTextResource(resourceName);
-        }
+        }        
     }    
 }
