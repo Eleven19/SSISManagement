@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\ExceptionHelper.cs" />
+    <Compile Include="Core\ISsisApplicationServices.cs" />
     <Compile Include="Core\ResourceHelper.cs" />
     <Compile Include="Data\Catalog\CatalogParameterTypes.cs" />
     <Compile Include="Data\Catalog\Parameters\SetExecutionParameterValueParameters.cs" />
